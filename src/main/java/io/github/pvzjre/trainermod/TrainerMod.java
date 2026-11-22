@@ -453,7 +453,10 @@ public final class TrainerMod implements ModInitializer {
      * 是否在修改器排除页（悬浮按钮隐藏、展开的修改器窗口自动收起）：
      * 加载画面、戴夫商店、图鉴、制作人员场景（清单页与 MV 同属
      * CreditScreen）、信件页（AwardScreen 的两种僵尸信类型）与三选关页
-     * （迷你游戏/益智模式/生存模式的关卡列表 ChallengeScreen）。
+     * （迷你游戏/益智模式/生存模式的关卡列表 ChallengeScreen），以及开场
+     * 动画板与试玩版推销板（GAMEMODE_INTRO/GAMEMODE_UPSELL——两者以
+     * SCENE_PLAYING 呈现，场景枚举区分不了，须按模式判断；mBoard 判空是
+     * 因为 mGameMode 在板子回收后不复位，回主菜单时不得误伤按钮）。
      */
     private static boolean isOnExcludedPage() {
         if (sApp == null) {
@@ -464,12 +467,16 @@ public final class TrainerMod implements ModInitializer {
                         == io.github.pvzjre.portable.lawn.AwardType.AWARD_CREDITS_ZOMBIENOTE
                 || sApp.mAwardScreen.mAwardType
                         == io.github.pvzjre.portable.lawn.AwardType.AWARD_HELP_ZOMBIENOTE);
+        boolean aIntroOrUpsellBoard = sApp.mBoard != null
+                && (sApp.mGameMode == io.github.pvzjre.portable.lawn.GameMode.GAMEMODE_INTRO
+                || sApp.mGameMode == io.github.pvzjre.portable.lawn.GameMode.GAMEMODE_UPSELL);
         return sApp.mGameScene == GameScenes.SCENE_LOADING
                 || sApp.getDialog(io.github.pvzjre.portable.lawn.Dialogs.DIALOG_STORE) != null
                 || sApp.getDialog(io.github.pvzjre.portable.lawn.Dialogs.DIALOG_ALMANAC) != null
                 || sApp.mCreditScreen != null
                 || aLetterPage
-                || sApp.mChallengeScreen != null;
+                || sApp.mChallengeScreen != null
+                || aIntroOrUpsellBoard;
     }
 
     /** 关卡页"不掉阳光/不掉金币"开关（TrainerBoardCoinMixin 读取）。 */
