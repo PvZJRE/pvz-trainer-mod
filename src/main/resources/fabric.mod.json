@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "pvz-trainer-mod",
+  "version": "1.0.0",
+  "name": "PvZ Trainer Mod",
+  "icon": "assets/pvz-trainer-mod/icon.png",
+  "description": "全能的PVZ修改器，使用FabricAPI+Mixin实现",
+  "authors": [
+    "MoeLuoYu"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "io.github.pvzjre.trainermod.TrainerMod"
+    ],
+    "modmenu": [
+      "io.github.pvzjre.trainermod.TrainerModMenu"
+    ]
+  },
+  "mixins": [
+    "trainermod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "fabric-api": ">=1.1.0",
+    "pvz-portable": "*"
+  },
+  "contact": {
+    "sources": "https://github.com/PvZJRE/pvz-trainer-mod",
+    "issues": "https://github.com/PvZJRE/pvz-trainer-mod/issues",
+    "modmenu.qqgroup": "https://qm.qq.com/q/Jj0VerWWyW"
+  },
+  "contributors": [
+    "PvZJRE"
+  ]
+}
